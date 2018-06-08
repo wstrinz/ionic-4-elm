@@ -47,40 +47,37 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    node "ion-app"
-        []
-        [ node "ion-header"
-            []
-            [ node "ion-toolbar"
-                [ attribute "color" "primary" ]
-                [ node "ion-title" [] [ text "Elmonic!" ]
-                ]
-            ]
-        , node "ion-content"
-            [ attribute "padding" "" ]
-            [ Html.p [] [ text "Elm is here!" ]
-            , Html.p [] [ text <| "count is " ++ toString model.counter ]
-            , node "ion-button" [ onClick Increment ] [ text "+" ]
-            ]
+    div []
+        [ Html.p [] [ text "Elm with ionic buttons!" ]
+        , node "ion-button" [ onClick Increment ] [ text "+" ]
+        , node "ion-button" [ onClick Decrement ] [ text "-" ]
+        , Html.p [] [ text <| "Count is " ++ toString model.counter ]
         ]
 
 
 
--- <ion-app>
---   <ion-header>
---     <ion-toolbar color='primary'>
---       <ion-title>Ionic JavaScript Starter</ion-title>
---     </ion-toolbar>
---   </ion-header>
---   <ion-content padding>
---     Hello Ionic 4
---   </ion-content>
--- </ion-app>
--- div []
---     [ img [ src "/logo.svg" ] []
---     , h1 [] [ text "boola!" ]
---     ]
----- PROGRAM ----
+-- fullIonicView : Model -> Html Msg
+-- fullIonicView model =
+--     div []
+--         [ node "ion-app"
+--             []
+--             [ node "ion-header"
+--                 []
+--                 [ node "ion-toolbar"
+--                     [ attribute "color" "primary" ]
+--                     [ node "ion-title" [] [ text "Elmonic!" ]
+--                     ]
+--                 ]
+--             , node "ion-content"
+--                 [ attribute "padding" "" ]
+--                 [ Html.p [] [ text "Elm is here!" ]
+--                 , node "ion-button" [ onClick Increment ] [ text "+" ]
+--                 , Html.p [] [ text <| toString model.counter ]
+--                 ]
+--             , Html.p [] [ text <| toString model.counter ]
+--             ]
+--         , Html.p [] [ text <| toString model.counter ]
+--         ]
 
 
 main : Program Never Model Msg
