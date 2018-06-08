@@ -2,18 +2,20 @@ module Main exposing (..)
 
 import Html exposing (Html, text, div, h1, img, node)
 import Html.Attributes exposing (src, attribute)
+import Html.Events exposing (onClick)
 
 
 ---- MODEL ----
 
 
 type alias Model =
-    {}
+    { counter : Int
+    }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
+    ( { counter = 0 }, Cmd.none )
 
 
 
@@ -22,11 +24,21 @@ init =
 
 type Msg
     = NoOp
+    | Increment
+    | Decrement
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        NoOp ->
+            model ! []
+
+        Increment ->
+            { model | counter = model.counter + 1 } ! []
+
+        Decrement ->
+            { model | counter = model.counter - 1 } ! []
 
 
 
@@ -44,7 +56,12 @@ view model =
                 [ node "ion-title" [] [ text "Elmonic!" ]
                 ]
             ]
-        , node "ion-content" [ attribute "padding" "" ] [ text "Elm is here!" ]
+        , node "ion-content"
+            [ attribute "padding" "" ]
+            [ Html.p [] [ text "Elm is here!" ]
+            , Html.p [] [ text <| "count is " ++ toString model.counter ]
+            , node "ion-button" [ onClick Increment ] [ text "+" ]
+            ]
         ]
 
 
