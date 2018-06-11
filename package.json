@@ -4,12 +4,10 @@
   "description": "An Amazing Capacitor App",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:mobile": "PUBLIC_URL=\"./\" elm-app build && npx cap copy"
   },
-  "keywords": [
-    "capacitor",
-    "mobile"
-  ],
+  "keywords": ["capacitor", "mobile"],
   "author": "",
   "license": "ISC",
   "dependencies": {
