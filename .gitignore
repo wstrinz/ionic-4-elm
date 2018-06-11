@@ -12,3 +12,7 @@ node_modules
 
 # Desktop Services Store on macOS
 .DS_Store
+
+# Capacitor managed dirs
+/electron/
+/ios/

@@ -1,0 +1,6 @@
+{
+  "appId": "com.wstrinz.ionicelm",
+  "appName": "ionicelm",
+  "bundledWebRuntime": false,
+  "webDir": "build"
+}
