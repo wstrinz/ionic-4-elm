@@ -7,6 +7,7 @@ const DefinePlugin = require("webpack/lib/DefinePlugin");
 const NamedModulesPlugin = require("webpack/lib/NamedModulesPlugin");
 const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const getClientEnvironment = require("./env");
 const paths = require("../config/paths");
 
@@ -201,7 +202,8 @@ module.exports = {
 
     new HotModuleReplacementPlugin(),
 
-    new NamedModulesPlugin()
+    new NamedModulesPlugin(),
+    new CopyWebpackPlugin([{ from: "node_modules/@ionic/core/dist/ionic", to: "static/js/ionic" }], {})
   ],
 
   // Some libraries import Node modules but don't use them in the browser.

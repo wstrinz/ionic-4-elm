@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const AssetsPlugin = require("assets-webpack-plugin");
 const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const getClientEnvironment = require("./env");
 const paths = require("../config/paths");
 
@@ -228,6 +229,8 @@ module.exports = {
         comments: false
       }
     }),
+
+    new CopyWebpackPlugin([{ from: "node_modules/@ionic/core/dist/ionic", to: "static/js/ionic" }], {}),
 
     new HtmlWebpackPlugin({
       inject: true,
