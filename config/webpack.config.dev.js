@@ -1,27 +1,27 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const autoprefixer = require('autoprefixer');
-const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const getClientEnvironment = require('./env');
-const paths = require('../config/paths');
+const path = require("path");
+const autoprefixer = require("autoprefixer");
+const HotModuleReplacementPlugin = require("webpack/lib/HotModuleReplacementPlugin");
+const DefinePlugin = require("webpack/lib/DefinePlugin");
+const NamedModulesPlugin = require("webpack/lib/NamedModulesPlugin");
+const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const getClientEnvironment = require("./env");
+const paths = require("../config/paths");
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
-const publicPath = '/';
+const publicPath = "/";
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
-const publicUrl = '';
+const publicUrl = "";
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: "cheap-module-source-map",
 
   entry: [
     // Include an alternative client for WebpackDevServer. A client's job is to
@@ -35,10 +35,10 @@ module.exports = {
     // require.resolve('webpack-dev-server/client') + '?/',
     // require.resolve('webpack/hot/dev-server'),
     // require.resolve('react-dev-utils/webpackHotDevClient'),
-    require.resolve('../scripts/utils/webpackHotDevClient'),
+    require.resolve("../scripts/utils/webpackHotDevClient"),
 
     // Errors should be considered fatal in development
-    require.resolve('react-error-overlay'),
+    require.resolve("react-error-overlay"),
 
     paths.appIndexJs
   ],
@@ -52,18 +52,17 @@ module.exports = {
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
-    filename: 'static/js/bundle.js',
+    filename: "static/js/bundle.js",
 
     publicPath: publicPath,
 
     // Point sourcemap entries to original disk location (format as URL on Windows)
-    devtoolModuleFilenameTemplate: info =>
-      path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
+    devtoolModuleFilenameTemplate: info => path.resolve(info.absoluteResourcePath).replace(/\\/g, "/")
   },
 
   resolve: {
-    modules: ['node_modules'],
-    extensions: ['.js', '.elm']
+    modules: ["node_modules"],
+    extensions: [".js", ".elm"]
   },
 
   module: {
@@ -73,12 +72,12 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader: require.resolve('babel-loader'),
+        loader: require.resolve("babel-loader"),
         query: {
           // Latest stable ECMAScript features
           presets: [
             [
-              require.resolve('babel-preset-env'),
+              require.resolve("babel-preset-env"),
               {
                 targets: {
                   // React parses on ie 9, so we should too
@@ -96,7 +95,7 @@ module.exports = {
           ],
           plugins: [
             [
-              require.resolve('babel-plugin-transform-runtime'),
+              require.resolve("babel-plugin-transform-runtime"),
               {
                 helpers: false,
                 polyfill: false,
@@ -112,28 +111,28 @@ module.exports = {
         exclude: [/elm-stuff/, /node_modules/],
         use: [
           {
-            loader: require.resolve('elm-hot-loader')
+            loader: require.resolve("elm-hot-loader")
           },
           // string-replace-loader works as InterpolateHtmlPlugin for Elm,
           // it replaces all of the %PUBLIC_URL% with the URL of your
           // application, so you could serve static assets outside of the
           // module system.
           {
-            loader: require.resolve('string-replace-loader'),
+            loader: require.resolve("string-replace-loader"),
             query: {
-              search: '%PUBLIC_URL%',
+              search: "%PUBLIC_URL%",
               replace: publicUrl,
-              flags: 'g'
+              flags: "g"
             }
           },
           {
-            loader: require.resolve('elm-webpack-loader'),
+            loader: require.resolve("elm-webpack-loader"),
             options: {
               verbose: true,
               warn: true,
               // If ELM_DEBUGGER was set to "false", disable it. Otherwise
               // for invalid values, "true" and as a default, enable it
-              debug: process.env.ELM_DEBUGGER === 'false' ? false : true,
+              debug: process.env.ELM_DEBUGGER === "false" ? false : true,
               pathToMake: paths.elmMake,
               forceWatch: true
             }
@@ -149,25 +148,20 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          require.resolve('style-loader'),
+          require.resolve("style-loader"),
           {
-            loader: require.resolve('css-loader'),
+            loader: require.resolve("css-loader"),
             options: {
               importLoaders: 1
             }
           },
           {
-            loader: require.resolve('postcss-loader'),
+            loader: require.resolve("postcss-loader"),
             options: {
-              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              ident: "postcss", // https://webpack.js.org/guides/migrating/#complex-options
               plugins: () => [
                 autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9'
-                  ]
+                  browsers: [">1%", "last 4 versions", "Firefox ESR", "not ie < 9"]
                 })
               ]
             }
@@ -177,19 +171,19 @@ module.exports = {
 
       {
         exclude: [/\.html$/, /\.js$/, /\.elm$/, /\.css$/, /\.json$/, /\.svg$/],
-        loader: require.resolve('url-loader'),
+        loader: require.resolve("url-loader"),
         options: {
           limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
+          name: "static/media/[name].[hash:8].[ext]"
         }
       },
 
       // "file" loader for svg
       {
         test: /\.svg$/,
-        loader: require.resolve('file-loader'),
+        loader: require.resolve("file-loader"),
         options: {
-          name: 'static/media/[name].[hash:8].[ext]'
+          name: "static/media/[name].[hash:8].[ext]"
         }
       }
     ]
@@ -213,10 +207,10 @@ module.exports = {
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
   node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
+    dgram: "empty",
+    fs: "empty",
+    net: "empty",
+    tls: "empty",
+    child_process: "empty"
   }
 };
